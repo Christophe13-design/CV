@@ -1,0 +1,318 @@
+
+/* ====================================================== */
+/* ================== STYLES PAR DEFAUT ================= */
+/* ====================================================== */
+
+/* Stocker des valeurs dans des variables CSS */
+:root {
+    --gt-color-theme: #337748;
+    --gt-font-family: Arial, Helvetica, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin : 0;
+    background-color : #f9f9fb;
+    /* font-family: Arial, Helvetica, sans-serif; */
+    font-family: var(--gt-font-family);
+}
+
+a {
+    /* color : #337748; */
+    color: var(--gt-color-theme);
+    text-decoration: none;
+}
+
+a:hover,
+a:focus,
+a:active {
+    text-decoration: underline;
+}
+
+h1 {
+    font-size : 3em;
+}
+
+h2 {
+    font-size : 2.5em;
+}
+
+h3 {
+    font-size : 1.6em;
+}
+
+/* A prévoir systématiquement pour empêcher une image de déborder de son conteneur parent */
+img {
+    max-width: 100%;
+    height: auto;
+    /* Supprimer un espace indésirable dû à l'alignement par défaut = baseline */
+    vertical-align: middle;
+}
+
+/* ====================================================== */
+/* ======================  LAYOUT ======================= */
+/* ====================================================== */
+
+/*
+    Placer le fotter en bas de l'écran
+    Il faut que la hauteur de body = minimum 100% de la hauteur de la fenêtre
+    soit : 100vh qui veut dire 100% de la hauteur du viewport (fenêtre)
+*/
+body {
+    min-height: 100vh; 
+    display:flex;
+    /* Répartir les enfants sur l'axe vertical qui devient l'axe principal */
+    flex-direction: column;
+    /* Répartir les enfants uniformément en partant du début et de la fin (le premier au début, le dernier à la fin) */
+    justify-content: space-between;
+}
+
+main {
+    /* Modifier les marges d'un enfant de flex afin de modifier sa position sur l'axe principal */
+    margin-top: 0;
+    margin-bottom: auto;
+}
+
+/* Contraindre le contenu à ne pas dépasser 1500px de large (confort de lecture) */
+.container {
+    max-width : 1500px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 20px;
+}
+
+/* ====================================================== */
+/* ====================== BANNIERE ====================== */
+/* ====================================================== */
+
+.banner {
+    border-bottom : 1px solid #ccc;
+    text-align: center;
+}
+
+.banner-logo {
+    fill: var(--gt-color-theme);
+}
+
+.banner-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.nav-link {
+    /* display: block; */
+    text-transform: uppercase;
+}
+
+
+/*
+    Introduction au responsive
+    Avec la démarche Mobile First
+*/
+@media screen and ( min-width: 1024px ) {
+    /* Placer le logo à côte de la nav sur l'axe horizontal (axe principal par défaut) */
+    .banner-container {
+        display: flex;
+        flex-wrap: wrap;
+
+        /* Le logo au tout début de l'axe (à gauche), la nav à la fin (à droite) */
+        justify-content: space-between;
+        /* Alignement centré par défaut sur l'axe secondaire (vertical) */
+        align-items: center;
+    }
+
+    /* Modifier la positon d'un enfant flex sur l'axe principal */
+    .banner-baseline {
+        margin-left : 0;
+        margin-right: auto;
+    }
+
+    .banner-nav {
+        /* Modifier l'alignement d'un enfant flex sur l'axe secondaire (vertical par défaut) */
+        align-self: flex-end;
+
+        flex-direction: row;       
+    }
+}
+
+
+
+/* ====================================================== */
+/* ======================= FOOTER ======================= */
+/* ====================================================== */
+
+.footer {
+    background-color: black;
+    color : #ccc;
+    text-align: center;
+}
+
+.link-up-icon {
+    width: 2em;
+    height: 2em;
+    fill: white;
+}
+
+
+/* ====================================================== */
+/* ===================== MAIN HEADER ==================== */
+/* ====================================================== */
+
+/* 
+Introduction au Reponsive Design 
+Utilisation des MEDIA QUERIES
+Démarche Desktop-First : les styles par défaut sont ceux prévus pour Desktop
+
+
+    Mobiles : de 0 à 767px
+    Tablettes :de 768px à 1023px
+    Ecrans d'ordinateur : à partir de 1024px
+
+    2 points de rupture : 
+        768px
+        1024px
+
+*/
+
+.home-header {
+    /* Hauteur mnimum : 70% de la hauteur de la fenêtre */
+    min-height: 60vh;
+
+    /* Centrer les boites enfants horizontalement */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-image: url('../img/tulipe.webp');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+/* Sur un écran dont la taille maximum est 1023px */
+@media screen and (max-width: 1023px) {
+    .home-header {
+        background-image: url('../img/tulipe-1200x750.webp');
+    }
+}
+
+/* Sur un écran dont la taille maximum est 767px */
+@media screen and (max-width: 767px) {
+    .home-header {
+        background-image: url('../img/tulipe-768x480.webp');
+    }
+}
+
+/* Centrer verticalement .header-title */
+.header-title {
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+    color: white;
+}
+
+/* LIen avec la flêche  en bas du conteneur : agir sur l'axe principal */
+.header-cta {
+    margin-top: auto;
+    margin-bottom: 1em;
+    font-size: 2.5em;
+}
+
+/* Cibler le premier span enfant de .header-title */
+.header-title span:first-child {
+    display: block;
+
+    font-size: 2em;
+
+    /* Donner une taille de police relative à la hauteur de la fenêtre */
+    /* font-size: 20vh;   */
+    
+    /* Ombre portée sur le texte */
+    text-shadow: rgba(0,0,0,0.5) 0.1em 0.1em 0.2em;
+}
+
+/* Cibler le dernier span enfant de .header-title */
+.header-title span:last-child {
+    text-shadow: 
+        -1px -1px 0 rgba(0,0,0,0.8), 
+        1px -1px 0 rgba(0,0,0,0.8),
+        -1px 1px 0 rgba(0,0,0,0.8), 
+        1px 1px 0 rgba(0,0,0,0.8);
+}
+
+
+
+
+/* ====================================================== */
+/* ====== CTA (CALL TO ACTION) et effets de bouton ====== */
+/* ====================================================== */
+
+.link-down-icon {
+    width: 2em;
+    height: 2em;
+    fill: #fff; 
+}
+
+
+.article-link,
+.btn {
+    display: inline-block;
+    padding: 1rem;
+    background-color: black;
+    color: white;
+
+    /* Si changement sur background, il se produira en 1s*/
+    transition: background-color 1s;
+}
+
+/* Cibler les liens précédents au survol et au focus */
+.article-link:hover,
+.article-link:focus,
+.btn:hover,
+.btn:focus {
+    background-color: var(--gt-color-theme);
+    text-decoration: none;
+}
+
+
+.pulse {
+    animation-name: pulse;
+    animation-duration: 0.5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+
+/* Créer une animation : effet pulse */
+@keyframes pulse {
+    /* Au début de l'animation */
+    0% {
+        transform: scale(1);
+    }
+
+    /* A la fin de l'animation */
+    100% {
+        transform: scale(2);
+    }
+}
+
+
+
+/* ====================================================== */
+/* ================= Styler les articles ================ */
+/* ====================================================== */
+
+.grid-article {
+    
+    background-color: #fff;
+    box-shadow: 
+        rgba(0, 0, 0, 0.25) 0px 54px 55px, 
+        rgba(0, 0, 0, 0.12) 0px -12px 30px, 
+        rgba(0, 0, 0, 0.12) 0px 4px 6px, 
+        rgba(0, 0, 0, 0.17) 0px 12px 13px, 
+        rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
